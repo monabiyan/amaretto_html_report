@@ -1,0 +1,70 @@
+rm(list=ls(all=TRUE))  # To Remove Everything
+#install.packages("/Users/mohsennabian/Dropbox/Harvard/amaretto/AMARETTO-develop-Mohsen", repos = NULL, type = "source")
+install.packages("/Users/mohsennabian/Dropbox/Harvard/amaretto/AMARETTO-develop-Celin", repos = NULL, type = "source")
+#library("dplyr")
+#library("plyr")
+
+library("AMARETTO")
+
+source('./amaretto_html_report_functions.R')
+########################################################
+# Demo data
+########################################################
+data("Driver_Genes")
+data(ProcessedDataLAML)
+MA_matrix<-data.matrix(ProcessedDataLAML$MA_TCGA)
+CNV_matrix<-data.matrix(ProcessedDataLAML$CNV_TCGA)
+MET_matrix<-data.matrix(ProcessedDataLAML$MET_TCGA)
+
+NrModules <- 5
+VarPercentage <- 20
+########################################################
+# LIHC Data : these 3 Data files must be in the same dirctory or change their address
+########################################################
+#MA_matrix <- data.matrix(read_gct('TCGA_LIHC_Expression.gct'))
+#CNV_matrix <-data.matrix(read_gct('TCGA_LIHC_CNV.gct'))
+#MET_matrix <-data.matrix(read_gct('TCGA_LIHC_Methylation.gct'))
+
+
+#NrModules <- 150
+#VarPercentage <- 75
+########################################################
+# Running AMARETTO
+########################################################
+AMARETTOinit2<-AMARETTO_Initialize(MA_matrix=MA_matrix,
+                                  CNV_matrix=CNV_matrix,MET_matrix=MET_matrix, 
+                                  NrModules=NrModules,VarPercentage=VarPercentage)
+
+AMARETTOresults2<-AMARETTO_Run(AMARETTOinit2)
+########################################################
+# Saving AMARETTO Results
+########################################################
+
+#save(AMARETTOinit,file="hyper_geo_test/AMARETTOinit.Rda")
+#save(AMARETTOresults,file="hyper_geo_test/AMARETTOresults.Rda")
+
+#save(AMARETTOinit,file="LIHC_AMARETTO_RESULTS/AMARETTOinit.Rda")
+#save(AMARETTOresults,file="LIHC_AMARETTO_RESULTS/AMARETTOresults.Rda")
+
+########################################################
+# Loading AMARETTO Results
+########################################################
+
+#load(file="hyper_geo_test/AMARETTOinit.Rda")
+#load(file="hyper_geo_test/AMARETTOresults.Rda")
+########################## LIHC
+#load(file="LIHC_AMARETTO_RESULTS/AMARETTOinit.Rda")
+#load(file="LIHC_AMARETTO_RESULTS/AMARETTOresults.Rda")
+#################################
+
+########################################################
+# Running the HTML Report for AMARETTO
+########################################################
+
+res<-amaretto_html_report(AMARETTOinit2,AMARETTOresults2,CNV_matrix,MET_matrix,VarPercentage,hyper_geo_test_bool=TRUE,n_cluster=AMARETTOinit2$NrCores,wordcloud_bool=FALSE,output_address='/Users/mohsennabian/Desktop/',output_name='LIHC')
+
+
+# The entire HTML results will be generated in a folder named "report_html" in the same directory as this code.
+
+
+
