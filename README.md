@@ -10,7 +10,5 @@ How to RUN :
 
 1) Inside the  "amaretto_html_report_functions.R", in the "amaretto_html_report" function
 you must specify the location of these two above files (absolute address). 
-4) Follow the "example_run_html_report.R" to generate the report. 
+2) Follow the "example_run_html_report.R" to generate the report. 
 
-# Amaretto_html_report
-# amaretto_html_report
