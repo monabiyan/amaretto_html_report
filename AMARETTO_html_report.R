@@ -1,5 +1,5 @@
-##################################  HTML Report Functions
-amaretto_html_report <- function(AMARETTOinit,AMARETTOresults,CNV_matrix,MET_matrix,VarPercentage,hyper_geo_test_bool=TRUE,n_cluster=AMARETTOinit$NrCores,wordcloud_bool=FALSE,hyper_geo_refence_name='H.C2CP.genesets.gmt',output_address='./',output_name='cancer')
+##################################  HTML Report Main Functions
+amaretto_html_report <- function(AMARETTOinit,AMARETTOresults,CNV_matrix,MET_matrix,VarPercentage,hyper_geo_test_bool=TRUE,n_cores=AMARETTOinit$NrCores,wordcloud_bool=FALSE,hyper_geo_refence_name='H.C2CP.genesets.gmt',output_address='./',output_name='cancer')
 {
   
     #You MUST change these two addresses to the address of the corresponding files. 
@@ -55,7 +55,7 @@ amaretto_html_report <- function(AMARETTOinit,AMARETTOresults,CNV_matrix,MET_mat
     if (hyper_geo_test_bool)
     {
         processTCGA_modules(AMARETTOinit,AMARETTOresults)
-        b<- HyperGTestGeneEnrichment(hyper_geo_reference_geneset_address, "./TCGA_modules_target_only.gmt", "./output.txt",n_cluster,all_gene_address=all_gene_address,show.overlapping.genes=TRUE)
+        b<- HyperGTestGeneEnrichment(hyper_geo_reference_geneset_address, "./TCGA_modules_target_only.gmt", "./output.txt",n_cores,all_gene_address=all_gene_address,show.overlapping.genes=TRUE)
         df3<-read.delim("./output.genes.txt", header=TRUE, sep="\t")
     }
     
@@ -780,7 +780,7 @@ processTCGA_modules <- function(AMARETTOinit,AMARETTOresults){
 ########################################################################################################################################
 ########################################################################################################################################
 ########################################################################################################################################
-HyperGTestGeneEnrichment<-function(gmtfile,testgmtfile,outfile,n_cluster,all_gene_address,show.overlapping.genes=FALSE,filter.genes=TRUE,show.unrecognized=FALSE)
+HyperGTestGeneEnrichment<-function(gmtfile,testgmtfile,outfile,n_cores,all_gene_address,show.overlapping.genes=FALSE,filter.genes=TRUE,show.unrecognized=FALSE)
   
 {
   #library(GSEABase)
@@ -842,7 +842,7 @@ HyperGTestGeneEnrichment<-function(gmtfile,testgmtfile,outfile,n_cluster,all_gen
   
   
   ###########################  Parallelizing :
-  n.cluster <- n_cluster
+  n.cluster <- n_cores
   cl2 <- makeCluster(c(rep("localhost", n.cluster)), type = "SOCK")
   cluster = cl2
   #library(foreach)

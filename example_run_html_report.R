@@ -1,8 +1,7 @@
 rm(list=ls(all=TRUE))  # To Remove Everything
-#install.packages("/Users/mohsennabian/Dropbox/Harvard/amaretto/AMARETTO-develop-Celine", repos = NULL, type = "source")
-install.packages("/Users/mohsennabian/Dropbox/Harvard/amaretto/AMARETTO-develop-mixed", repos = NULL, type = "source")
+#install.packages("/Users/mohsennabian/Dropbox/Harvard/amaretto/AMARETTO-develop-mixed", repos = NULL, type = "source")
 library("AMARETTO")
-#source('./AMARETTO_html_report_functions.R')
+source('./AMARETTO_html_report.R')
 ########################################################
 # Demo data
 ########################################################
@@ -57,10 +56,9 @@ AMARETTOresults<-AMARETTO_Run(AMARETTOinit)
 # Running the HTML Report for AMARETTO
 ########################################################
 
-res<-amaretto_html_report(AMARETTOinit,AMARETTOresults,CNV_matrix,MET_matrix,VarPercentage,hyper_geo_test_bool=TRUE,n_cluster=AMARETTOinit$NrCores,wordcloud_bool=FALSE,output_address='/Users/mohsennabian/Desktop/test3/',output_name='LIHC')
+res<-amaretto_html_report(AMARETTOinit,AMARETTOresults,CNV_matrix,MET_matrix,VarPercentage,hyper_geo_test_bool=TRUE,wordcloud_bool=FALSE,output_address='/Users/mohsennabian/Desktop/report/',output_name='LIHC')
 
 
-# The entire HTML results will be generated in a folder named "report_html" in the same directory as this code.
 
 
 
