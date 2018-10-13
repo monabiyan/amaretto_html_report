@@ -3,15 +3,16 @@ amaretto_html_report <- function(AMARETTOinit,AMARETTOresults,CNV_matrix,MET_mat
 {
   
     #You MUST change these two addresses to the address of the corresponding files. 
-    hyper_geo_reference_geneset_address=paste('/Users/mohsennabian/Desktop/ali1/hyper_geo_test/',hyper_geo_refence_name,sep='')
-    all_gene_address="/Users/mohsennabian/Desktop/ali1/hyper_geo_test/all_genes.txt"
+    hyper_geo_reference_geneset_address=paste('./hyper_geo_test/',hyper_geo_refence_name,sep='')
+    all_gene_address="./hyper_geo_test/all_genes.txt"
 
     set.seed(1234)
    
+    
     #required packages 
     list_of_packages<-c("AMARETTO","svglite","R2HTML","GSEABase","rstudioapi","tm","SnowballC","wordcloud","RColorBrewer","foreach","doParallel","tibble","tidyverse")
     lapply(list_of_packages, require, character.only = TRUE)
-    
+    ############################################################
     NrModules<-AMARETTOresults$NrModules
     ##################################################################################################################################################################
     #Create necessary folders :
@@ -35,7 +36,7 @@ amaretto_html_report <- function(AMARETTOinit,AMARETTOresults,CNV_matrix,MET_mat
     # Save images of all the modules
     ########################################################   
     
-    save(AMARETTOresults, file=paste(output_address,'report_html/',output_name,"_","amarettoResults.RData",sep=""))
+    save(AMARETTOresults, file=paste(output_address,'report_html/',"amarettoResults","_",output_name,".RData",sep=""))
     
     address1=paste(output_address,"report_html",sep="")
     #address2=paste(output_address,"htmls",sep="")
@@ -565,7 +566,7 @@ amaretto_html_report <- function(AMARETTOinit,AMARETTOresults,CNV_matrix,MET_mat
     #################################################################################[####
     curr_add<-getwd()
     setwd(output_address)
-    zip(zipfile = paste(output_address,output_name,"_",'Amaretto_HTML_Report',sep=''), files = paste('report_html/',sep=''))
+    zip(zipfile = paste(output_address,'Amaretto_HTML_Report',"_",output_name,sep=''), files = paste('report_html/',sep=''))
     setwd(curr_add)
     ###############################
 }

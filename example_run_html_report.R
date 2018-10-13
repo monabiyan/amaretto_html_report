@@ -1,16 +1,12 @@
 rm(list=ls(all=TRUE))  # To Remove Everything
-#install.packages("/Users/mohsennabian/Dropbox/Harvard/amaretto/AMARETTO-develop-Mohsen", repos = NULL, type = "source")
-install.packages("/Users/mohsennabian/Dropbox/Harvard/amaretto/AMARETTO-develop-Celin", repos = NULL, type = "source")
-#library("dplyr")
-#library("plyr")
-
+#install.packages("/Users/mohsennabian/Dropbox/Harvard/amaretto/AMARETTO-develop-Celine", repos = NULL, type = "source")
+install.packages("/Users/mohsennabian/Dropbox/Harvard/amaretto/AMARETTO-develop-mixed", repos = NULL, type = "source")
 library("AMARETTO")
-
-source('./amaretto_html_report_functions.R')
+#source('./AMARETTO_html_report_functions.R')
 ########################################################
 # Demo data
 ########################################################
-data("Driver_Genes")
+data(Driver_Genes)
 data(ProcessedDataLAML)
 MA_matrix<-data.matrix(ProcessedDataLAML$MA_TCGA)
 CNV_matrix<-data.matrix(ProcessedDataLAML$CNV_TCGA)
@@ -31,11 +27,11 @@ VarPercentage <- 20
 ########################################################
 # Running AMARETTO
 ########################################################
-AMARETTOinit2<-AMARETTO_Initialize(MA_matrix=MA_matrix,
+AMARETTOinit<-AMARETTO_Initialize(MA_matrix=MA_matrix,
                                   CNV_matrix=CNV_matrix,MET_matrix=MET_matrix, 
                                   NrModules=NrModules,VarPercentage=VarPercentage)
 
-AMARETTOresults2<-AMARETTO_Run(AMARETTOinit2)
+AMARETTOresults<-AMARETTO_Run(AMARETTOinit)
 ########################################################
 # Saving AMARETTO Results
 ########################################################
@@ -61,7 +57,7 @@ AMARETTOresults2<-AMARETTO_Run(AMARETTOinit2)
 # Running the HTML Report for AMARETTO
 ########################################################
 
-res<-amaretto_html_report(AMARETTOinit2,AMARETTOresults2,CNV_matrix,MET_matrix,VarPercentage,hyper_geo_test_bool=TRUE,n_cluster=AMARETTOinit2$NrCores,wordcloud_bool=FALSE,output_address='/Users/mohsennabian/Desktop/',output_name='LIHC')
+res<-amaretto_html_report(AMARETTOinit,AMARETTOresults,CNV_matrix,MET_matrix,VarPercentage,hyper_geo_test_bool=TRUE,n_cluster=AMARETTOinit$NrCores,wordcloud_bool=FALSE,output_address='/Users/mohsennabian/Desktop/test3/',output_name='LIHC')
 
 
 # The entire HTML results will be generated in a folder named "report_html" in the same directory as this code.
